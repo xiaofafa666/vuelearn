@@ -1,11 +1,15 @@
 <template>
-
-     <h2>首页</h2>
+     <div id="home">
+        <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+        <h2>首页</h2>
+     </div>
 
 </template>
 
 <script>
+ import NavBar from 'components/common/navbar/NavBar';
 export default {
+
     name:"Home",
  data() {
   return {
@@ -13,11 +17,17 @@ export default {
   }
  },
  components: {
-
+     NavBar
  }
 }
 </script>
 
 <style scoped>
-
+  #home{
+		/* height: 40px; */
+	}
+	.home-nav{
+		background-color: var(--color-tint);
+		color: white;
+	}
 </style>
