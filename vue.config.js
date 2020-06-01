@@ -10,11 +10,11 @@ module.exports = {
 			} 
     }
   },
-//   devServer: {
-// 	overlay: {
-// 		warnings: false,
-// 		errors: false
-// 	},
-// 	lintOnSave: false
-// }
+  devServer: {
+	overlay: {
+		warnings: false,
+		errors: false
+	},
+	lintOnSave: false
+}
 }
