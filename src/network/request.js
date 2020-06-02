@@ -3,7 +3,8 @@ import axios from "axios";
 export function request(config) {
   // 1.创建实例
   const instance = axios.create({
-    baseURL: "http://123.207.32.32:8000",
+    // baseURL: "http://123.207.32.32:8000",
+    baseURL: "http://106.54.54.237:8000/api/mn",
     // baseURL: "http://localhost:8083",
     // baseURL: "http://192.168.0.105:3000", //手机检测时，换该地址
     timeout: 5000
