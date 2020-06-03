@@ -3,52 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <home-swiper :banner="banner"></home-swiper>
-    <homecommend :recommend="recommend"></homecommend>
-    <feature-view></feature-view>
-    <tab-control class="tabcontrol" 
-    :title="['精选','流行','爆款']"
-    @tabClick="tabClick"
-    ></tab-control>
-    <good-list :goods="showGoods"></good-list>
-    <ul>
-      <li>列表1</li>
-      <li>列表2</li>
-      <li>列表3</li>
-      <li>列表4</li>
-      <li>列表5</li>
-      <li>列表6</li>
-      <li>列表7</li>
-      <li>列表8</li>
-      <li>列表9</li>
-      <li>列表10</li>
-      <li>列表11</li>
-      <li>列表12</li>
-      <li>列表13</li>
-      <li>列表14</li>
-      <li>列表15</li>
-      <li>列表16</li>
-      <li>列表17</li>
-      <li>列表18</li>
-      <li>列表19</li>
-      <li>列表20</li>
-      <li>列表21</li>
-      <li>列表22</li>
-      <li>列表23</li>
-      <li>列表24</li>
-      <li>列表25</li>
-      <li>列表15</li>
-      <li>列表16</li>
-      <li>列表17</li>
-      <li>列表18</li>
-      <li>列表19</li>
-      <li>列表20</li>
-      <li>列表21</li>
-      <li>列表22</li>
-      <li>列表23</li>
-      <li>列表24</li>
-      <li>列表25</li>
-    </ul>
+      <scroll class="content">
+             <home-swiper :banner="banner"></home-swiper>
+        <homecommend :recommend="recommend"></homecommend>
+        <feature-view></feature-view>
+        <tab-control class="tabcontrol" :title="['精选','流行','爆款']" @tabClick="tabClick"></tab-control>
+        <good-list :goods="showGoods"></good-list>
+      </scroll>
+      <back-top></back-top>
   </div>
 </template>
 
@@ -58,10 +20,14 @@ import Homecommend from "./childComps/Homecommend";
 import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
+import Scroll from "components/common/scroll/Scroll";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodList from "components/content/goods/GoodList";
+import BackTop from "components/content/backTop/backTop";
+
 
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
+
 export default {
   name: "Home",
   data() {
@@ -83,7 +49,9 @@ export default {
     Homecommend,
     FeatureView,
     TabControl,
-    GoodList
+    GoodList,
+    Scroll,
+    BackTop
   },
   computed:{
        showGoods(){
@@ -135,11 +103,10 @@ export default {
 </script>
 
 <style scoped>
-
 #home {
-     /* width: 100vw;
-     height: 100vh; */
-     padding-top: 44px;
+  /* width: 100vw;*/
+     height: 100vh; 
+  /* padding-top: 44px; */
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -157,5 +124,14 @@ export default {
   position: sticky;
   top: 44px;
   background-color: white;
+}
+.content{
+     /* height:calc(100% - 93px); */
+     position: absolute;
+     top: 44px;
+     bottom: 49px;
+     /* overflow: hidden; */
+     /* z-index: 999; */
+     /* margin-top: 44px; */
 }
 </style>
