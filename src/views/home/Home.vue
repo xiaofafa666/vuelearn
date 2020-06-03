@@ -7,6 +7,7 @@
     <homecommend :recommend="recommend"></homecommend>
     <feature-view></feature-view>
     <tab-control class="tabcontrol" :title="['精选','流行','爆款']"></tab-control>
+    <good-list :goods="goods['pop'].list"></good-list>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -54,7 +55,8 @@ import Homecommend from "./childComps/Homecommend";
 import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
-import TabControl from "../../components/content/tabControl/TabControl";
+import TabControl from "components/content/tabControl/TabControl";
+import GoodList from "components/content/goods/GoodList";
 
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
 export default {
@@ -76,7 +78,8 @@ export default {
     HomeSwiper,
     Homecommend,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodList
   },
   created() {
     //获取首页数据
