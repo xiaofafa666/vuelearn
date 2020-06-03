@@ -27,6 +27,7 @@ export default {
           itemclick(index){
             //   console.log(index)
             this.currentIndex = index
+            this.$emit('tabClick',index)
       }
   },
   components: {}

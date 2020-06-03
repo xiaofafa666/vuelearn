@@ -6,8 +6,11 @@
     <home-swiper :banner="banner"></home-swiper>
     <homecommend :recommend="recommend"></homecommend>
     <feature-view></feature-view>
-    <tab-control class="tabcontrol" :title="['精选','流行','爆款']"></tab-control>
-    <good-list :goods="goods['pop'].list"></good-list>
+    <tab-control class="tabcontrol" 
+    :title="['精选','流行','爆款']"
+    @tabClick="tabClick"
+    ></tab-control>
+    <good-list :goods="showGoods"></good-list>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -70,8 +73,9 @@ export default {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
-      }
-    };
+      },
+      currentType:'pop'
+    }
   },
   components: {
     NavBar,
@@ -80,6 +84,11 @@ export default {
     FeatureView,
     TabControl,
     GoodList
+  },
+  computed:{
+       showGoods(){
+            return this.goods[this.currentType].list
+       }
   },
   created() {
     //获取首页数据
@@ -90,6 +99,22 @@ export default {
     this.getHomeGoods('sell');
   },
   methods: {
+       //事件监听
+     tabClick(index){
+     //  console.log(index)
+     switch(index){
+          case 0:
+               this.currentType='pop'
+               break;
+          case 1:
+               this.currentType='new'
+               break;
+          case 2:
+               this.currentType='sell'
+               break;
+     }
+     },
+
     getHomeMultiData() {
       getHomeMultiData().then(res => {
         console.log(res);
@@ -110,8 +135,11 @@ export default {
 </script>
 
 <style scoped>
+
 #home {
-  padding-top: 43px;
+     /* width: 100vw;
+     height: 100vh; */
+     padding-top: 44px;
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -121,6 +149,8 @@ export default {
   right: 0;
   top: 0;
   z-index: 9;
+  /* height: 44px;
+  line-height: 44px; */
   /* margin-bottom: 0px; */
 }
 .tabcontrol {
