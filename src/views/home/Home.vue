@@ -3,14 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-      <scroll class="content">
+      <scroll class="content" ref="Totop" :probe-type="3" @scroll="scrollmove">
              <home-swiper :banner="banner"></home-swiper>
         <homecommend :recommend="recommend"></homecommend>
         <feature-view></feature-view>
         <tab-control class="tabcontrol" :title="['精选','流行','爆款']" @tabClick="tabClick"></tab-control>
         <good-list :goods="showGoods"></good-list>
       </scroll>
-      <back-top></back-top>
+      <back-top @click.native="backtoTop" v-show="isshowbacktop"></back-top>
   </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currentType:'pop'
+      currentType:'pop',
+      isshowbacktop:false
     }
   },
   components: {
@@ -81,6 +82,16 @@ export default {
                this.currentType='sell'
                break;
      }
+     },
+
+     backtoTop(){
+      //  console.log("返回顶部");
+      console.log(this.$refs.Totop.scroll)
+      this.$refs.Totop.scroll.scrollTo(0,0,500)
+     },
+     scrollmove(position){
+       console.log(position.y);
+        (-position.y >1000)?this.isshowbacktop = true:this.isshowbacktop = false
      },
 
     getHomeMultiData() {
@@ -130,7 +141,7 @@ export default {
      position: absolute;
      top: 44px;
      bottom: 49px;
-     /* overflow: hidden; */
+     overflow: hidden;
      /* z-index: 999; */
      /* margin-top: 44px; */
 }
