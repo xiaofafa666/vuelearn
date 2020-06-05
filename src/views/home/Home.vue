@@ -81,11 +81,15 @@ export default {
       return this.goods[this.currentType].list;
     }
   },
+  destroyed(){
+    console.log("homedistory");
+  },
+
   activated(){
     this.$refs.Totop.scrollTo(0, this.saveY, 0);
     this.$refs.Totop.refresh();
   },
-  deactivated() {
+  deactivated() { 
     this.saveY = this.$refs.Totop.getScrollY();
   },
   created() {
