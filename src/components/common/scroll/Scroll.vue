@@ -35,12 +35,12 @@ export default {
       pullUpLoad: this.pullUpLoad
     });
     //监听滚动位置
-    if (this.prototype === 2 || this.prototype === 3) {
+    // if (this.prototype === 2 || this.prototype === 3) {
       this.scroll.on("scroll", position => {
         // console.log(position);
         this.$emit("scroll", position);
       });
-    }
+    // }
     // this.scroll.refresh()
     // console.log(this.scroll);
     if (this.pullUpLoad) {
