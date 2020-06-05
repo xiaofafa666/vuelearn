@@ -3,11 +3,21 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-      <scroll class="content" ref="Totop" :probe-type="3" @scroll="scrollmove">
+      <scroll class="content" 
+      ref="Totop" 
+      :probe-type="3" 
+      @scroll="scrollmove"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+      >
              <home-swiper :banner="banner"></home-swiper>
         <homecommend :recommend="recommend"></homecommend>
         <feature-view></feature-view>
-        <tab-control class="tabcontrol" :title="['精选','流行','爆款']" @tabClick="tabClick"></tab-control>
+        <tab-control class="tabcontrol" 
+        :title="['精选','流行','爆款']" 
+        @tabClick="tabClick"
+        ref="tabcon"
+        ></tab-control>
         <good-list :goods="showGoods"></good-list>
       </scroll>
       <back-top @click.native="backtoTop" v-show="isshowbacktop"></back-top>
@@ -15,6 +25,8 @@
 </template>
 
 <script>
+import {debounce} from "common/utils"
+
 import HomeSwiper from "./childComps/HomeSwiper";
 import Homecommend from "./childComps/Homecommend";
 import FeatureView from "./childComps/FeatureView";
@@ -41,7 +53,8 @@ export default {
         sell: { page: 0, list: [] }
       },
       currentType:'pop',
-      isshowbacktop:false
+      isshowbacktop:false,
+      taboffsetTop:0,
     }
   },
   components: {
@@ -66,8 +79,21 @@ export default {
     this.getHomeGoods('pop');
     this.getHomeGoods('new');
     this.getHomeGoods('sell');
+ 
+  },
+  mounted () {
+    const refresh = debounce(this.$refs.Totop.refresh)
+    //监听图片加载完成
+    this.$bus.$on('imageLoad',()=>{
+      // console.log("图片加载完成");
+      // this.$refs.Totop.refresh()
+      refresh()
+    })
+
+    this.taboffsetTop = this.$refs.tabcon.$el.offsetTop
   },
   methods: {
+   
        //事件监听
      tabClick(index){
      //  console.log(index)
@@ -90,8 +116,12 @@ export default {
       this.$refs.Totop.scroll.scrollTo(0,0,500)
      },
      scrollmove(position){
-       console.log(position.y);
+      //  console.log(position.y);
         (-position.y >1000)?this.isshowbacktop = true:this.isshowbacktop = false
+     },
+     loadMore(){
+       console.log("上拉加载触发");
+       this.getHomeGoods(this.currentType)
      },
 
     getHomeMultiData() {
@@ -107,6 +137,9 @@ export default {
         console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+
+        // console.log(this.$refs.Totop.scroll)
+        this.$refs.Totop.scroll.finishPullUp()
       });
     }
   }
