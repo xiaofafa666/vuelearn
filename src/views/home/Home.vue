@@ -90,6 +90,7 @@ export default {
     this.$refs.Totop.refresh();
   },
   deactivated() { 
+    console.log(this.saveY)
     this.saveY = this.$refs.Totop.getScrollY();
   },
   created() {

@@ -28,7 +28,9 @@ export default {
           this.currentIndex = index
       },
       goback(){
-          this.$router.go(-1)
+        console.log("点击了返回");
+        
+          this.$router.back(-1)
       }
   }
 };
