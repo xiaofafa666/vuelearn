@@ -9,6 +9,13 @@ export function getDetail(iid){
     })
 }
 
+export function getRecommend(){
+    return request({
+        url:'/recommend',
+    })
+}
+
+//商品信息
 export class Goods{
     constructor(itemInfo,columns,services){
         this.title = itemInfo.title;
@@ -25,7 +32,7 @@ export class Goods{
         
     }
 }
-
+//关于店铺信息
 export class Goodsshop{
     constructor(shopInfo){
         this.shoplogo = shopInfo.shopLogo;
@@ -37,3 +44,12 @@ export class Goodsshop{
         this.shopurl =shopInfo.shopUrl
     }
 }
+//商品参数信息
+export class Goodsparams{
+    constructor(itemParams){
+        this.rule = itemParams.rule.tables;
+        this.info = itemParams.info.set;
+    }
+}
+
+

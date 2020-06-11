@@ -1,6 +1,6 @@
 <template>
-  <div class="container" @click="itemClick">
-    <img :src="goodsItem.show.img" alt @load="imageLoad" />
+  <div class="containgoods" @click="itemClick">
+   <div class="imgbg"><img :src="showImage" alt @load="imageLoad" /></div> 
     <div class="title">{{goodsItem.title}}</div>
     <div class="itemdiv">
       <div class="price">
@@ -24,6 +24,11 @@ export default {
       }
     }
   },
+  computed:{
+    showImage(){
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   data() {
     return {};
   },
@@ -41,20 +46,22 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  width: 50vw;
-  padding: 0 0 0 2vw;
-  margin-bottom: 5px;
-  -moz-page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
+.containgoods {
+  width: 50%;
+  padding: 0.8vw;
+  float: left;
 }
-.container img {
+.containgoods .imgbg{
+  height: 238px;
+  display: flex;
+}
+.containgoods img {
   width: 100%;
   padding-bottom: 5px;
   border-radius: 10px;
+  align-items: center;
 }
-.container .title {
-  /* padding: 0 6px; */
+.containgoods .title {
   white-space: nowrap;
   width: 99%;
   overflow: hidden;
@@ -62,12 +69,12 @@ export default {
   text-overflow: ellipsis;
   font-size: 10px;
 }
-.container .itemdiv {
+.containgoods .itemdiv {
   display: flex;
   flex-direction: row;
   margin-top: 3px;
 }
-.container .itemdiv div {
+.containgoods .itemdiv div {
   width: 50%;
   text-align: center;
   font-size: 12px;
@@ -83,7 +90,6 @@ export default {
   height: 12px;
   background-size: 12px 12px;
   background-repeat: no-repeat;
-  /* background-color: red; */
   z-index: 99;
   background-image: url("../../../assets/img/common/collect.svg");
 }

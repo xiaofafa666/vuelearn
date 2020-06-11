@@ -27,12 +27,10 @@ export default {
 
 <style scoped>
 .goods {
-  width: 100vw;
-  -moz-column-count:2 ;
-  -webkit-column-count: 2;
-  column-count: 2;
-    column-gap: 2vw;
-    padding:0 4vw 0 0;
+  width: 99vw;
+  overflow: hidden;
+  padding: 0.4vw;
+  margin: 0 auto;
 }
 </style>
 
