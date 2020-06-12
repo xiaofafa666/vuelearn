@@ -82,7 +82,7 @@ export default {
     }
   },
   destroyed(){
-    console.log("homedistory");
+    // console.log("homedistory");
   },
 
   activated(){
@@ -90,14 +90,14 @@ export default {
     this.$refs.Totop.refresh();
   },
   deactivated() { 
-    console.log(this.saveY)
+    // console.log(this.saveY)
     this.saveY = this.$refs.Totop.getScrollY();
   },
   created() {
     //获取首页数据
     this.getHomeMultiData();
     //获取选项卡数据
-    this.getHomeGoods("pop");
+    this.getHomeGoods("pop"); 
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
@@ -131,7 +131,7 @@ export default {
 
     backtoTop() {
       //  console.log("返回顶部");
-      console.log(this.$refs.Totop.scroll);
+      // console.log(this.$refs.Totop.scroll);
       this.$refs.Totop.scroll.scrollTo(0, 0, 500);
     },
     scrollmove(position) {
@@ -149,17 +149,17 @@ export default {
     }
     ,
     loadMore() {
-      console.log("上拉加载触发");
+      // console.log("上拉加载触发");
       this.getHomeGoods(this.currentType);
     },
     swiperImageLoad() {
-      console.log(this.$refs.tabcontrol02.$el.offsetTop)
+      // console.log(this.$refs.tabcontrol02.$el.offsetTop)
       this.taboffsetTop = this.$refs.tabcontrol02.$el.offsetTop;
     },
 
     getHomeMultiData() {
       getHomeMultiData().then(res => {
-        console.log(res);
+        // console.log(res);
         this.banner = res.data.banner.list;
         this.recommend = res.data.recommend.list;
       });
@@ -167,7 +167,7 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
-        console.log(res);
+        // console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 

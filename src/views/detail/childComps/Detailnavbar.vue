@@ -25,7 +25,8 @@ export default {
   },
   methods:{
       itemClick(index){
-          this.currentIndex = index
+          this.currentIndex = index;
+          this.$emit('itemClick',index)
       },
       goback(){
         console.log("点击了返回");
