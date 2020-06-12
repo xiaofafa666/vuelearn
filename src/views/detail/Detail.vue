@@ -10,13 +10,15 @@
       <detail-goods-comment :goodsrate="goodsrate" ref="comment"></detail-goods-comment>
       <detail-goods-recommend :goods="recommends" ref="recommend"></detail-goods-recommend>
     </scroll>
-      <back-top class="backtop" @click.native="ClickTop" v-show="isshowbacktop"></back-top>
+    <back-top class="backtop" @click.native="ClickTop" v-show="isshowbacktop"></back-top>
+    <detailbottomnav class="bottomnav"></detailbottomnav>
   </div>
 </template>
 
 <script>
 import Scroll from "components/common/scroll/Scroll";
 import Detailnavbar from "views/detail/childComps/Detailnavbar";
+import Detailbottomnav from "views/detail/childComps/Detailbottomnav";
 import DetailSwiper from "views/detail/childComps/DetailSwiper";
 import DetailGoods from "views/detail/childComps/DetailGoods";
 import DetailGoodsShop from "views/detail/childComps/DetailGoodsshop";
@@ -57,43 +59,48 @@ export default {
       //刷新better-scroll可滚动高度
       this.$refs.scroll.refresh();
 
-       this.DistancetoTop=[]
+      this.DistancetoTop=[];
       this.DistancetoTop.push(0);
       this.DistancetoTop.push(this.$refs.params.$el.offsetTop),
-      this.DistancetoTop.push(this.$refs.comment.$el.offsetTop),
-      this.DistancetoTop.push(this.$refs.recommend.$el.offsetTop);
-      console.log(this.DistancetoTop)
+        this.DistancetoTop.push(this.$refs.comment.$el.offsetTop),
+        this.DistancetoTop.push(this.$refs.recommend.$el.offsetTop);
+      console.log(this.DistancetoTop);
     },
     itemClick(index) {
       console.log(index);
       this.$refs.scroll.scrollTo(0, -this.DistancetoTop[index], 200);
     },
-    scroll(position){
+    scroll(position) {
       // console.log(position)
-      const positionY = -position.y
+      const positionY = -position.y;
 
       // var ind = 0
-      for(var i=0;i<this.DistancetoTop.length;i++){ 
+      for (var i = 0; i < this.DistancetoTop.length; i++) {
         // console.log(this.DistancetoTop.length-1)
         // ind = i+1
         // console.log(this.DistancetoTop[this.DistancetoTop.length-1])
 
-          // console.log(positionY)
-        if(positionY >= this.DistancetoTop[i] && positionY<this.DistancetoTop[i+1]){
-          this.$refs.detailnav.currentIndex = i
+        // console.log(positionY)
+        if (
+          positionY >= this.DistancetoTop[i] &&
+          positionY < this.DistancetoTop[i + 1]
+        ) {
+          this.$refs.detailnav.currentIndex = i;
           // console.log(this.$refs.detailnav)
-        }else if(positionY>=this.DistancetoTop[this.DistancetoTop.length-1]){
-          this.$refs.detailnav.currentIndex = this.DistancetoTop.length-1
+        } else if (
+          positionY >= this.DistancetoTop[this.DistancetoTop.length - 1]
+        ) {
+          this.$refs.detailnav.currentIndex = this.DistancetoTop.length - 1;
         }
       }
       /**
        * 是否显示返回顶部按钮,默认不显示，当滑动距离大于1000时显示
        */
-      this.isshowbacktop = positionY > 1000
+      this.isshowbacktop = positionY > 1000;
     },
-    ClickTop(){
+    ClickTop() {
       //返回滚动顶部
-      this.$refs.scroll.scrollTo(0,0,500)
+      this.$refs.scroll.scrollTo(0, 0, 500);
     }
   },
   created() {
@@ -132,6 +139,7 @@ export default {
   components: {
     Scroll,
     Detailnavbar,
+    Detailbottomnav,
     DetailSwiper,
     DetailGoods,
     DetailGoodsShop,
@@ -158,11 +166,19 @@ export default {
   z-index: 9;
   height: 100vh;
 }
-.content{
+.content {
   position: absolute;
   overflow: hidden;
   left: 0px;
   top: 44px;
-  bottom: 0px;
+  bottom: 44px;
+}
+.bottomnav {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  background-color: #ffe6e8;
+  height: 44px;
 }
 </style>
