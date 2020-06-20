@@ -1,8 +1,14 @@
 <template>
   <div class="detail">
     <detailnavbar class="detailnavbar" @itemClick="itemClick" ref="detailnav"></detailnavbar>
+   
     <scroll class="content" ref="scroll" :probe-type="3" @scroll="scroll">
-      <detail-swiper :swipperimg="swipperimg" class="swipper"></detail-swiper>
+      <!-- <div>
+      <ul>
+      <li v-for="(item,index) in $store.state.cartList" :key="index">{{item}}</li>
+   </ul>
+    </div> -->
+     <detail-swiper :swipperimg="swipperimg" class="swipper"></detail-swiper>
       <detail-goods :goods="goods"></detail-goods>
       <detail-goods-shop :goodsshop="goodsshop"></detail-goods-shop>
       <detail-goods-info :goodsinfo="goodsinfo" @loadDetailImg="loadDetailImg"></detail-goods-info>
@@ -11,7 +17,7 @@
       <detail-goods-recommend :goods="recommends" ref="recommend"></detail-goods-recommend>
     </scroll>
     <back-top class="backtop" @click.native="ClickTop" v-show="isshowbacktop"></back-top>
-    <detailbottomnav class="bottomnav"></detailbottomnav>
+    <detailbottomnav class="bottomnav" @addtoCart="addtoCart"></detailbottomnav>
   </div>
 </template>
 
@@ -26,7 +32,6 @@ import DetailGoodsInfo from "views/detail/childComps/DetailGoodsInfo";
 import DetailGoodsParams from "views/detail/childComps/DetailGoodsParams";
 import DetailGoodsComment from "views/detail/childComps/DetailGoodscomment";
 import DetailGoodsRecommend from "components/content/goods/GoodList";
-
 import {
   getDetail,
   Goods,
@@ -53,6 +58,19 @@ export default {
       isshowbacktop:false
       // currentIndex:0
     };
+  },
+    components: {
+    Scroll,
+    Detailnavbar,
+    Detailbottomnav,
+    DetailSwiper,
+    DetailGoods,
+    DetailGoodsShop,
+    DetailGoodsInfo,
+    DetailGoodsParams,
+    DetailGoodsComment,
+    DetailGoodsRecommend,
+    BackTop,
   },
   methods: {
     loadDetailImg() {
@@ -101,6 +119,19 @@ export default {
     ClickTop() {
       //返回滚动顶部
       this.$refs.scroll.scrollTo(0, 0, 500);
+    },
+    addtoCart(){
+      console.log('加入购物车')
+      //狗驱车信息
+      const product ={}
+      product.image = this.swipperimg[0]
+      product.title= this.goods.title
+      product.desc = this.goods.desc
+      product.price = this.goods.lowNowPrice
+      product.iid = this.iid
+
+      // this.$store.commit('addCart',product)
+      this.$store.dispatch('addCart',product).then(res=>console.log(res))
     }
   },
   created() {
@@ -136,19 +167,7 @@ export default {
     //   console.log(1111);
     // });
   },
-  components: {
-    Scroll,
-    Detailnavbar,
-    Detailbottomnav,
-    DetailSwiper,
-    DetailGoods,
-    DetailGoodsShop,
-    DetailGoodsInfo,
-    DetailGoodsParams,
-    DetailGoodsComment,
-    DetailGoodsRecommend,
-    BackTop
-  }
+
 };
 </script>
 

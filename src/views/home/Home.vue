@@ -86,6 +86,7 @@ export default {
   },
 
   activated(){
+    console.log(this.beFunc)
     this.$refs.Totop.scrollTo(0, this.saveY, 0);
     this.$refs.Totop.refresh();
   },

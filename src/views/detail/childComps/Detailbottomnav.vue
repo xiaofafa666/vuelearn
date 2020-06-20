@@ -19,7 +19,7 @@
       <div>收藏</div>
     </div>
     <div class="bottomright">
-      <div class="shop">加入购物车</div>
+      <div class="shop" @click="addtoCart">加入购物车</div>
       <div class="shop pay">立即购买</div>
     </div>
   </div>
@@ -31,7 +31,12 @@ export default {
   data() {
     return {};
   },
-  components: {}
+  components: {},
+  methods:{
+    addtoCart(){
+      this.$emit('addtoCart')
+    }
+  }
 };
 </script>
 
